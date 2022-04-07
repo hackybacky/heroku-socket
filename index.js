@@ -1,6 +1,6 @@
 
 const io = require("socket.io")
-
+const cors = require("cors");
 let users = [];
 
 io.use(cors({ origin: process.env.HOST, credentials: true }));
