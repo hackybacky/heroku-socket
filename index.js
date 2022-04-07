@@ -1,14 +1,8 @@
-
-  const express = require('express');
-  const { Server } = require('ws');
-  
-  const PORT = process.env.PORT || 3000;
-  const INDEX = '/index.js';
-  
-  const server = express()
-    .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
- const io=   new Server({ server });
+const io = require("socket.io")(process.env.PORT, {
+  cors: {
+    origin: process.env.HOST
+  },
+});
 let users = [];
 
 const addUser = (userId, socketId) => {
