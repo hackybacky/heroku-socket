@@ -1,12 +1,9 @@
-const io = require("socket.io")(httpServer, {
-  cors: {
-    origin: process.env.HOST,
-    methods: ["GET", "POST"]
-  }
-});
+
+const io = require("socket.io")
+
 let users = [];
 
-app.use(cors({ origin: process.env.HOST, credentials: true }));
+io.use(cors({ origin: process.env.HOST, credentials: true }));
 
 const addUser = (userId, socketId) => {
   !users.some((user) => user?.userId === userId) &&
