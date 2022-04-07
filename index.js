@@ -1,4 +1,4 @@
-const io = require("socket.io")(process.env.PORT||8900, {
+const io = require("socket.io")(process.env.PORT, {
   cors: {
     origin: process.env.HOST,
   },
@@ -7,7 +7,7 @@ const io = require("socket.io")(process.env.PORT||8900, {
 let users = [];
 
 const addUser = (userId, socketId) => {
-  !users.some((user) => user.userId === userId) &&
+  !users.some((user) => user?.userId === userId) &&
     users.push({ userId, socketId });
 };
 
@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
 
   //take userId and socketId from user
   socket.on("addUser", (userId) => {
-    addUser(userId, socket.id);
+    addUser(userId, socket?.id);
     io.emit("getUsers", users);
   });
 
@@ -41,7 +41,7 @@ io.on("connection", (socket) => {
   //when disconnect
   socket.on("disconnect", () => {
     console.log("a user disconnected!");
-    removeUser(socket.id);
+    removeUser(socket?.id);
     io.emit("getUsers", users);
   });
 });
