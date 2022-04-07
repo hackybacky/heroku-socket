@@ -1,5 +1,9 @@
-const io =require('socket.io')();
-const cors =require("cors")
+const io = require("socket.io")(httpServer, {
+  cors: {
+    origin: process.env.HOST,
+    methods: ["GET", "POST"]
+  }
+});
 let users = [];
 
 app.use(cors({ origin: process.env.HOST, credentials: true }));
