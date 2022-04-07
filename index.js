@@ -1,9 +1,16 @@
+var express = require("express")
+var app =express();
+var http=require("http").createServer(app);
+var io=require("socket.io")(http,{
+  cors:{
+    origin:process.env.HOST
+  }
+})
 
-const io = require("socket.io")
-const cors = require("cors");
+
 let users = [];
 
-io.use(cors({ origin: process.env.HOST, credentials: true }));
+
 
 const addUser = (userId, socketId) => {
   !users.some((user) => user?.userId === userId) &&
@@ -44,4 +51,5 @@ io.on("connection", (socket) => {
     io.emit("getUsers", users);
   });
 });
-io.listen(process.env.PORT)
+http.listen(process.env.PORT)
+
